@@ -9,6 +9,7 @@ def cars(request):
     }
     return render(request, "cars/cars.html", context)
 
+
 def car_detail(request, car_id):
     car = get_object_or_404(Car, car_id=car_id)
     context = {
