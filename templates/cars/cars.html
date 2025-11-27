@@ -25,33 +25,40 @@
                 <div class="row">
 
                     {% for car in cars %}
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-6 col-md-6"> 
                         <div class="car-box-3">
-
-                            <!-- Thumbnail -->
                             <div class="car-thumbnail">
+
+                                <!-- CORRECT CAR DETAIL URL -->
                                 <a href="{% url 'car_detail' car.id %}" class="car-img">
+
                                     <div class="tag">For Rent</div>
                                     <div class="price-box">
                                         <span>${{ car.price }}</span>
                                     </div>
 
-                                    <!-- car image -->
-                                    <img class="d-block w-100" src="{{ car.car_photo.url }}" alt="{{ car.car_name }}">
+                                    <!-- CAR IMAGE -->
+                                    <img class="d-block w-100"
+                                         src="{{ car.car_photo.url }}"
+                                         alt="{{ car.car_name }}">
                                 </a>
-                            </div>
 
-                            <!-- Car Details -->
+                            </div>
                             <div class="detail">
                                 <h1 class="title">
-                                    <a href="{% url 'car_detail' car.id %}">{{ car.car_name }}</a>
+                                    <a href="{% url 'car_detail' car.id %}">
+                                        {{ car.car_name }}
+                                    </a>
                                 </h1>
+
                                 <div class="location">
                                     <a href="{% url 'car_detail' car.id %}">
-                                        <i class="flaticon-pin"></i>{{ car.location }}
+                                        <i class="flaticon-pin"></i>
+                                        {{ car.location }}
                                     </a>
                                 </div>
 
+                                <!-- SPECIFICATIONS -->
                                 <ul class="facilities-list clearfix">
                                     <li>{{ car.fuel_type }}</li>
                                     <li>{{ car.kilometers_driven }} km</li>
@@ -60,51 +67,20 @@
                                     <li>{{ car.color }}</li>
                                     <li>{{ car.year }}</li>
                                 </ul>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
 
                 </div>
-
-                <!-- Pagination -->
-                <div class="pagination-box p-box-2 text-center">
-                    {% if cars.has_other_pages %}
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            {% if cars.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ cars.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
-                            </li>
-                            {% endif %}
-
-                            {% for p in cars.paginator.page_range %}
-                                {% if cars.number == p %}
-                                    <li class="page-item"><a class="page-link active" href="#">{{ p }}</a></li>
-                                {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-
-                            {% if cars.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ cars.next_page_number }}"><i class="fa fa-angle-right"></i></a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                    {% endif %}
-                </div>
-
             </div>
 
-            <!-- Sidebar -->
+            <!-- RIGHT SIDEBAR SEARCH  (unchanged) -->
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
-                    <!-- Advanced search start -->
                     <div class="widget advanced-search2">
-                        <h3 class="sidebar-title">Search your desired car</h3>
+                        <h3 class="sidebar-title">Search your desire car</h3>
                         <form method="GET">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="brand">
@@ -124,23 +100,9 @@
                             <div class="form-group mb-0">
                                 <button class="search-button btn">Search</button>
                             </div>
+
                         </form>
                     </div>
-
-                    <!-- Social -->
-                    <div class="widget question widget-3">
-                        <h5 class="sidebar-title">Follow us</h5>
-                        <div class="social-list clearfix">
-                            <ul>
-                                <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#" class="rss-bg"><i class="fa fa-rss"></i></a></li>
-                                <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
