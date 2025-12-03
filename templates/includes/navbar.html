@@ -3,9 +3,7 @@
 <header class="main-header sticky-header header-with-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand company-logo" href="index.html">
-                <img src="img/logos/black-logo.png" alt="logo">
-            </a>
+            <a href="{% url 'home' %}"><img src="{% static 'img/logos/black-logo.png' %}" alt="logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span>
             </button>
@@ -22,15 +20,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">
+                        <a class="nav-link" href="{% url 'teams' %}">
                             About
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'services' %}">
-                            Services
-                        </a>
+                        {% comment %} <a href="{% url 'services' %}">Services</a> {% endcomment %}
                     </li>
+                        
                     
                     
                     <li class="nav-item dropdown">

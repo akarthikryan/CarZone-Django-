@@ -18,9 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from pages import views as page_views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', page_views.home, name='home'),
     path('', include('pages.urls')),
     path('cars/', include('cars.urls')),
     path('contact/', include('contact.urls')),
+    path('teams/', include('teams.urls')),
+    path('search/', page_views.search, name='search'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

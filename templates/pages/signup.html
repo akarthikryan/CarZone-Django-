@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Signup Section Start -->
+<div class="contact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="form-section">
+                    <!-- Logo -->
+                    <div class="logo-2 text-center mb-4">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'img/logos/black-logo.png' %}" alt="logo" class="img-fluid">
+                        </a>
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="text-center mb-4">Create an account</h3>
+
+                    <!-- Form -->
+                    <form action="{% url 'signup' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group form-box">
+                            <input type="text" name="firstname" class="input-text" placeholder="First Name" required>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <input type="text" name="lastname" class="input-text" placeholder="Last Name" required>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <input type="text" name="username" class="input-text" placeholder="Username" required>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <input type="email" name="email" class="input-text" placeholder="Email Address" required>
+                            <i class="flaticon-mail"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <input type="password" name="password" class="input-text" placeholder="Password" required>
+                            <i class="flaticon-lock"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <input type="password" name="confirm_password" class="input-text" placeholder="Confirm Password" required>
+                            <i class="flaticon-lock"></i>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="form-group mb-3 clearfix">
+                            <button type="submit" class="btn-md btn-theme w-100">Register</button>
+                        </div>
+
+                        <!-- Social Login -->
+                        <div class="extra-login text-center mb-3">
+                            <span>Or Login With</span>
+                        </div>
+                        <ul class="social-list d-flex justify-content-center gap-2">
+                            <li>
+                                <a href="#" class="facebook-bg"><i class="fa fa-facebook facebook-i"></i><span>Facebook</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="google-bg"><i class="fa fa-google google-i"></i><span>Google</span></a>
+                            </li>
+                        </ul>
+
+                        <!-- Login Link -->
+                        <p class="text-center mt-3">
+                            Already a member? 
+                            <a href="{% url 'login' %}" class="thembo">Login here</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Signup Section End -->
+
+{% endblock %}

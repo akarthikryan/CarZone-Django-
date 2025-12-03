@@ -1,164 +1,37 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
+{% block content %}
 
-<!-- Sub banner start -->
-<div class="sub-banner overview-bgi">
-    <div class="container breadcrumb-area">
-        <div class="breadcrumb-areas">
-            <h1>{{ car.car_name }}</h1>
-            <ul class="breadcrumbs">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li class="active">{{ car.car_name }}</li>
+<div class="container mt-5">
+
+    <div class="row">
+
+        <!-- Car Image -->
+        <div class="col-md-6">
+            <img src="{{ car.car_photo.url }}" class="img-fluid rounded shadow" alt="{{ car.car_name }}">
+        </div>
+
+        <!-- Car Details -->
+        <div class="col-md-6">
+            <h2>{{ car.car_name }}</h2>
+            <h4 class="text-success">₹ {{ car.price }}</h4>
+            <hr>
+
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Brand:</strong> {{ car.brand }}</li>
+                <li class="list-group-item"><strong>Model:</strong> {{ car.model }}</li>
+                <li class="list-group-item"><strong>Fuel Type:</strong> {{ car.fuel_type }}</li>
+                <li class="list-group-item"><strong>Kilometers:</strong> {{ car.kilometers_driven }} km</li>
+                <li class="list-group-item"><strong>Transmission:</strong> {{ car.transmission }}</li>
+                <li class="list-group-item"><strong>Year:</strong> {{ car.year }}</li>
+                <li class="list-group-item"><strong>Condition:</strong> {{ car.condition }}</li>
             </ul>
+
+            <a href="{% url 'cars' %}" class="btn btn-primary mt-4">Back to Cars</a>
         </div>
+
     </div>
-</div>
-<!-- Sub Banner end -->
 
-
-<div class="car-details-page content-area-6">
-    <div class="container">
-        <div class="row">
-            <!-- LEFT CAR DETAILS -->
-            <div class="col-lg-8 col-md-12 col-xs-12">
-                <div class="car-details-section">
-
-                    <!-- Heading Section -->
-                    <div class="heading-car clearfix">
-                        <div class="pull-left">
-                            <h3>{{ car.car_name }}</h3>
-                            <h6>
-                                <i class="flaticon-pin"></i> {{ car.location }}
-                            </h6>
-                        </div>
-                        <div class="pull-right">
-                            <h3><span>₹{{ car.price }}</span></h3>
-                        </div>
-                    </div>
-
-                    <!-- Main Slider -->
-                    <div id="carDetailsSlider" class="carousel car-details-sliders slide mb-40">
-                        <div class="carousel-inner">
-
-                            <div class="active item carousel-item">
-                                <img src="{{ car.car_photo.url }}" class="img-fluid" alt="slider-car">
-                            </div>
-
-                            {% if car.car_photo_1 %}
-                            <div class="item carousel-item">
-                                <img src="{{ car.car_photo_1.url }}" class="img-fluid" alt="slider-car">
-                            </div>
-                            {% endif %}
-
-                            {% if car.car_photo_2 %}
-                            <div class="item carousel-item">
-                                <img src="{{ car.car_photo_2.url }}" class="img-fluid" alt="slider-car">
-                            </div>
-                            {% endif %}
-
-                            {% if car.car_photo_3 %}
-                            <div class="item carousel-item">
-                                <img src="{{ car.car_photo_3.url }}" class="img-fluid" alt="slider-car">
-                            </div>
-                            {% endif %}
-
-                        </div>
-
-                        <!-- Thumbnail images -->
-                        <div class="carousel-indicators-section clearfix">
-                            <ul class="carousel-indicators car-properties list-inline nav nav-justified">
-
-                                <li class="list-inline-item active">
-                                    <a data-slide-to="0" data-target="#carDetailsSlider">
-                                        <img src="{{ car.car_photo.url }}" class="img-fluid">
-                                    </a>
-                                </li>
-
-                                {% if car.car_photo_1 %}
-                                <li class="list-inline-item">
-                                    <a data-slide-to="1" data-target="#carDetailsSlider">
-                                        <img src="{{ car.car_photo_1.url }}" class="img-fluid">
-                                    </a>
-                                </li>
-                                {% endif %}
-
-                                {% if car.car_photo_2 %}
-                                <li class="list-inline-item">
-                                    <a data-slide-to="2" data-target="#carDetailsSlider">
-                                        <img src="{{ car.car_photo_2.url }}" class="img-fluid">
-                                    </a>
-                                </li>
-                                {% endif %}
-
-                                {% if car.car_photo_3 %}
-                                <li class="list-inline-item">
-                                    <a data-slide-to="3" data-target="#carDetailsSlider">
-                                        <img src="{{ car.car_photo_3.url }}" class="img-fluid">
-                                    </a>
-                                </li>
-                                {% endif %}
-
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="car-description mb-50">
-                        <h3>Description</h3>
-                        <p>{{ car.description }}</p>
-                    </div>
-
-                    <!-- Features -->
-                    <div class="features-info mb-50">
-                        <h3>Car Details</h3>
-                        <ul>
-                            <li><strong>Model:</strong> {{ car.car_model }}</li>
-                            <li><strong>Fuel Type:</strong> {{ car.fuel_type }}</li>
-                            <li><strong>Transmission:</strong> {{ car.transmission_type }}</li>
-                            <li><strong>Color:</strong> {{ car.color }}</li>
-                            <li><strong>Kilometers Driven:</strong> {{ car.kilometers_driven }} km</li>
-                            <li><strong>Created At:</strong> {{ car.created_at }}</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- RIGHT SIDEBAR -->
-            <div class="col-lg-4 col-md-12">
-                <div class="sidebar-right">
-
-                    <div class="widget advanced-search d-none-992">
-                        <button class="btn btn-outline-danger btn-block btn-lg" type=submit>Send message</button>
-                        <br>
-
-                        <h3 class="sidebar-title">Car Information</h3>
-                        <ul>
-                            <li><span>Brand:</span> {{ car.brand }}</li>
-                            <li><span>Year:</span> {{ car.year }}</li>
-                            <li><span>Fuel Type:</span> {{ car.fuel_type }}</li>
-                            <li><span>Transmission:</span> {{ car.transmission_type }}</li>
-                            <li><span>Color:</span> {{ car.color }}</li>
-                            <li><span>Locale:</span> {{ car.location }}</li>
-                        </ul>
-                    </div>
-
-                    <!-- Contact Section -->
-                    <div class="widget question">
-                        <h5 class="sidebar-title">Need Help?</h5>
-                        <ul class="contact-info">
-                            <li><i class="flaticon-pin"></i>20/F Green Road, Dhanmondi</li>
-                            <li><i class="flaticon-mail"></i>info@example.com</li>
-                            <li><i class="flaticon-phone"></i>+0477 85x6 552</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="our-team content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Executive <span>Team</span></h1>
+            <p>Meet our professional and creative team members.</p>
+        </div>
+
+        <!-- Slick slider area -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel"
+                 data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+
+                {% for member in team_members %}
+                <div class="slick-slide-item">
+                    <div class="team-1">
+                        <div class="photo">
+                            <a href="#">
+                                <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="img-fluid">
+                            </a>
+
+                            <div class="social-list clearfix">
+                                <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="google-bg"><i class="fa fa-google"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="details">
+                            <h4>{{ member.name }}</h4>
+                            <h5>{{ member.role }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-danger">No team members added yet.</p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

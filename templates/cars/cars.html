@@ -1,116 +1,114 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
 <!-- Sub banner start -->
 <div class="sub-banner overview-bgi">
     <div class="container breadcrumb-area">
         <div class="breadcrumb-areas">
-            <h1>Our Car Inventory</h1>
+            <h1>About Us</h1>
             <ul class="breadcrumbs">
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li class="active">Cars</li>
+                <li class="active">About Us</li>
             </ul>
         </div>
     </div>
 </div>
 <!-- Sub Banner end -->
 
-<!-- Featured car start -->
-<div class="featured-car content-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-12">
 
-                <div class="row">
+<!-- Cars Listing -->
+<div class="container mt-5">
 
-                    {% for car in cars %}
-                    <div class="col-lg-6 col-md-6"> 
-                        <div class="car-box-3">
-                            <div class="car-thumbnail">
+    <!-- Search Bar -->
+    <form method="GET" action="{% url 'cars' %}">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <input type="text" name="keyword" class="form-control" placeholder="Search by car name..." value="{{ request.GET.keyword }}">
+            </div>
 
-                                <!-- CORRECT CAR DETAIL URL -->
-                                <a href="{% url 'car_detail' car.id %}" class="car-img">
-
-                                    <div class="tag">For Rent</div>
-                                    <div class="price-box">
-                                        <span>₹{{ car.price }}</span>
-                                    </div>
-
-                                    <!-- CAR IMAGE -->
-                                    <img class="d-block w-100"
-                                         src="{{ car.car_photo.url }}"
-                                         alt="{{ car.car_name }}">
-                                </a>
-
-                            </div>
-                            <div class="detail">
-                                <h1 class="title">
-                                    <a href="{% url 'car_detail' car.id %}">
-                                        {{ car.car_name }}
-                                    </a>
-                                </h1>
-
-                                <div class="location">
-                                    <a href="{% url 'car_detail' car.id %}">
-                                        <i class="flaticon-pin"></i>
-                                        {{ car.location }}
-                                    </a>
-                                </div>
-
-                                <!-- SPECIFICATIONS -->
-                                <ul class="facilities-list clearfix">
-                                    <li>{{ car.fuel_type }}</li>
-                                    <li>{{ car.kilometers_driven }} km</li>
-                                    <li>{{ car.car_model }}</li>
-                                    <li>{{ car.transmission_type }}</li>
-                                    <li>{{ car.color }}</li>
-                                    <li>{{ car.year }}</li>
-                                </ul>
-
-                            </div>
-                            <button><a href="{% url 'car_detail' car.id %}">View Details</a></button>
-
-                        </div>
-                    </div>
+            <div class="col-md-3">
+                <select name="brand" class="form-control">
+                    <option value="">All Brands</option>
+                    {% for brand in brands %}
+                        <option value="{{ brand }}" {% if request.GET.brand == brand %}selected{% endif %}>
+                            {{ brand }}
+                        </option>
                     {% endfor %}
-
-                </div>
+                </select>
             </div>
 
-            <!-- RIGHT SIDEBAR SEARCH  (unchanged) -->
-             <div class="col-lg-4 col-md-12">
-                <div class="sidebar-right">
-                    <div class="widget advanced-search2">
-                        <h3 class="sidebar-title">Search your desire car</h3>
-                        <form method="GET">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="brand">
-                                    <option>Brand</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="location">
-                                    <option>Location</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="year">
-                                    <option>Year</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-0">
-                                <button class="search-button btn">Search</button>
-                            </div> 
-
-                        </form>
-                    </div>
-                </div>
+            <div class="col-md-3">
+                <select name="year" class="form-control">
+                    <option value="">All Years</option>
+                    {% for year in years %}
+                        <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>
+                            {{ year }}
+                        </option>
+                    {% endfor %}
+                </select>
             </div>
 
+            <div class="col-md-2">
+                <button class="btn btn-primary btn-block">Search</button>
+            </div>
         </div>
+    </form>
+
+    <div class="row">
+
+        {% for car in cars %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="car-box-3">
+
+                <div class="car-thumbnail">
+                    <a href="{% url 'car_detail' car.id %}" class="car-img">
+                        <img class="d-block w-100" src="{{ car.car_photo.url }}" alt="{{ car.car_name }}">
+                    </a>
+                </div>
+
+                <div class="detail">
+                    <h4>
+                        <a href="{% url 'car_detail' car.id %}">{{ car.car_name }}</a>
+                    </h4>
+
+                    <ul class="facilities-list clearfix">
+                        <li>{{ car.fuel_type }}</li>
+                        <li>{{ car.kilometers_driven }} km</li>
+                        <li>{{ car.transmission }}</li>
+                        <li>{{ car.year }}</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <h4 class="text-center w-100">No cars found 🔍</h4>
+        {% endfor %}
     </div>
+
+    <!-- Pagination -->
+    <div class="pagination-area text-center mt-4">
+        <nav>
+            <ul class="pagination">
+
+                {% if cars.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ cars.previous_page_number }}">Prev</a></li>
+                {% endif %}
+
+                {% for page in cars.paginator.page_range %}
+                    <li class="page-item {% if cars.number == page %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if cars.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ cars.next_page_number }}">Next</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </div>
+
 </div>
-<!-- Featured car end -->
 
 {% endblock %}
